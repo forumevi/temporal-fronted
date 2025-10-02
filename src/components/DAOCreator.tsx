@@ -1,19 +1,26 @@
-// src/components/DAOCreator.tsx
+// src/components/DAOCreator.tsx (GÜNCELLENDİ)
 'use client';
 
-import { useWriteContract } from 'wagmi';
+import { useWriteContract, useWaitForTransactionReceipt } from 'wagmi';
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 
 export function DAOCreator() {
-  const { writeContract, isPending } = useWriteContract();
+  const { writeContract, data: hash, isPending, error: writeError } = useWriteContract();
+  const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({ hash });
   const [startTime, setStartTime] = useState<string>('');
   const [duration, setDuration] = useState<string>('');
+  const [error, setError] = useState<string | null>(null);
 
   const handleCreateDAO = () => {
-    if (!startTime || !duration) return;
+    setError(null);
+    if (!startTime || !duration) {
+      setError('Both fields are required.');
+      return;
+    }
 
     writeContract({
-      address: '0x8e166334A7C23e20A0495ae4dF5a891C68b6D34E', // Somnia contract adresi
+      address: '0x8e166334A7C23e20A0495ae4dF5a891C68b6D34E',
       abi: [
         {
           name: 'createDAO',
@@ -32,9 +39,41 @@ export function DAOCreator() {
   };
 
   return (
-    <div className="bg-gray-800 p-6 rounded-xl mb-8">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="bg-gray-800 p-6 rounded-xl mb-8"
+    >
       <h3 className="text-xl font-semibold mb-4">Create New DAO</h3>
-      
+
+      {isSuccess && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="mb-4 p-3 bg-green-900 text-green-300 rounded text-sm"
+        >
+          ✅ DAO created successfully!{' '}
+          <a
+            href={`https://explorer.somnia.network/tx/${hash}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline"
+          >
+            View on Explorer
+          </a>
+        </motion.div>
+      )}
+
+      {(writeError || error) && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="mb-4 p-3 bg-red-900 text-red-300 rounded text-sm"
+        >
+          ❌ {writeError?.message || error}
+        </motion.div>
+      )}
+
       <div className="space-y-4">
         <div>
           <label className="block text-sm font-medium mb-1">Start Time (Unix Timestamp)</label>
@@ -53,23 +92,23 @@ export function DAOCreator() {
             type="number"
             value={duration}
             onChange={(e) => setDuration(e.target.value)}
-            placeholder="86400" // 1 gün
+            placeholder="86400"
             className="w-full px-3 py-2 bg-gray-700 rounded border border-gray-600 focus:outline-none focus:ring-2 focus:ring-purple-500"
           />
         </div>
 
         <button
           onClick={handleCreateDAO}
-          disabled={isPending}
+          disabled={isPending || isConfirming}
           className={`w-full py-2 px-4 rounded-lg font-medium transition ${
-            isPending
+            isPending || isConfirming
               ? 'bg-gray-600 cursor-not-allowed'
               : 'bg-purple-600 hover:bg-purple-700'
           }`}
         >
-          {isPending ? 'Creating...' : 'Create DAO'}
+          {isConfirming ? 'Confirming...' : isPending ? 'Creating...' : 'Create DAO'}
         </button>
       </div>
-    </div>
+    </motion.div>
   );
 }
