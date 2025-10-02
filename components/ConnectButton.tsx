@@ -1,4 +1,3 @@
-// components/ConnectButton.tsx
 'use client';
 
 import { useAccount, useConnect } from 'wagmi';
