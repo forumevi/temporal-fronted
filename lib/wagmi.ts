@@ -3,7 +3,6 @@ import { http, createConfig } from 'wagmi';
 import { mainnet } from 'wagmi/chains';
 import { injected, coinbaseWallet, walletConnect } from 'wagmi/connectors';
 
-// Somnia Mainnet chain tanımı
 export const somnia = {
   id: 5031,
   name: 'Somnia Mainnet',
