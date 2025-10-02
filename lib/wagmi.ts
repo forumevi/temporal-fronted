@@ -1,6 +1,4 @@
-// lib/wagmi.ts
 import { http, createConfig } from 'wagmi';
-import { mainnet } from 'wagmi/chains';
 import { injected, coinbaseWallet, walletConnect } from 'wagmi/connectors';
 
 export const somnia = {
@@ -19,7 +17,11 @@ export const somnia = {
 
 export const config = createConfig({
   chains: [somnia],
-  connectors: [injected(), coinbaseWallet(), walletConnect({ projectId: 'YOUR_WC_PROJECT_ID' })],
+  connectors: [
+    injected(),
+    coinbaseWallet({ appName: 'Temporal DAO' }),
+    walletConnect({ projectId: 'YOUR_WALLETCONNECT_PROJECT_ID' }),
+  ],
   transports: {
     [somnia.id]: http(),
   },
