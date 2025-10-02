@@ -1,4 +1,4 @@
-// src/components/DAOCreator.tsx (GÜNCELLENDİ)
+// components/DAOCreator.tsx
 'use client';
 
 import { useWriteContract, useWaitForTransactionReceipt } from 'wagmi';
