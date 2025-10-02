@@ -1,6 +1,6 @@
 // app/layout.tsx
 import './globals.css';
-import { config } from '@/lib/wagmi';
+import { config } from "../lib/wagmi";
 import { WagmiProvider } from 'wagmi';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
