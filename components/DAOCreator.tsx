@@ -1,4 +1,3 @@
-// components/DAOCreator.tsx
 'use client';
 
 import { useWriteContract, useWaitForTransactionReceipt } from 'wagmi';
@@ -6,7 +5,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 
 export function DAOCreator() {
-  const { writeContract, data: hash, isPending, error: writeError } = useWriteContract();
+  const { writeContract, hash, isPending, error: writeError } = useWriteContract();
   const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({ hash });
   const [startTime, setStartTime] = useState<string>('');
   const [duration, setDuration] = useState<string>('');
