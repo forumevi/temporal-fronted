@@ -1,8 +1,8 @@
 // app/page.tsx
 'use client';
 
-import { ConnectButton } from '@/components/ConnectButton';
-import { DAOCreator } from '@/components/DAOCreator';
+import { ConnectButton } from "../components/ConnectButton";
+import { DAOCreator } from "../components/DAOCreator";
 import { useState, useEffect } from 'react';
 import { useReadContracts } from 'wagmi';
 import { motion } from 'framer-motion';
