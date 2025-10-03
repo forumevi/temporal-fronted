@@ -3,9 +3,10 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Eğer özel bir şey ekleyeceksen, body'ye background veya color verme! */
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  background: #000;
-  color: white;
+  /* background: #000;  <-- BUNU SİL veya YORUMA AL */
+  /* color: white;      <-- BUNU SİL veya YORUMA AL */
 }
