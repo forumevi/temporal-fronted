@@ -1,3 +1,7 @@
+// app/layout.jsx
+'use client';
+export const dynamic = 'force-dynamic';
+
 import './globals.css';
 import { config } from '../lib/wagmi';
 import { WagmiProvider } from 'wagmi';
