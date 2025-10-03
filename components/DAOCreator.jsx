@@ -7,9 +7,9 @@ import { motion } from 'framer-motion';
 export function DAOCreator() {
   const { writeContract, hash, isPending, error: writeError } = useWriteContract();
   const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({ hash });
-  const [startTime, setStartTime] = useState<string>('');
-  const [duration, setDuration] = useState<string>('');
-  const [error, setError] = useState<string | null>(null);
+  const [startTime, setStartTime] = useState('');
+  const [duration, setDuration] = useState('');
+  const [error, setError] = useState(null);
 
   const handleCreateDAO = () => {
     setError(null);
