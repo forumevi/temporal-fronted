@@ -1,7 +1,8 @@
 'use client';
 
-import { useReadContracts, useWriteContract, useWaitForTransactionReceipt } from 'wagmi';
+import { useReadContracts, useWriteContract } from 'wagmi';
 import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 
 const TEMPORAL_DAO_ADDRESS = '0x8e166334A7C23e20A0495ae4dF5a891C68b6D34E';
 const ABI = [
@@ -58,9 +59,7 @@ export function DAOList() {
       // Fetch all DAOs
       const daoPromises = [];
       for (let i = 0; i < count; i++) {
-        daoPromises.push(
-          fetchDAO(i)
-        );
+        daoPromises.push(fetchDAO(i));
       }
       const allDaos = await Promise.all(daoPromises);
       setDaos(allDaos.map((dao, idx) => ({ ...dao, id: idx })));
@@ -68,9 +67,8 @@ export function DAOList() {
     }
 
     async function fetchDAO(id) {
-      // Use wagmi or viem to call the contract
-      // For now, we use wagmi's useReadContracts, but you can optimize this
-      const res = await fetch(`/api/dao?id=${id}`); // You can implement this API route or use wagmi directly
+      // wagmi ile zincirden çekmek için optimize edebilirsin, şimdilik API ile örnek
+      const res = await fetch(`/api/dao?id=${id}`);
       return res.json();
     }
 
@@ -115,28 +113,37 @@ export function DAOList() {
       {daos
         .filter((dao) => !dao.finalized)
         .map((dao) => (
-          <div key={dao.id} className="bg-gray-900 rounded-lg p-4 flex flex-col md:flex-row md:items-center justify-between">
-            <div>
-              <div className="font-bold">DAO #{dao.id}</div>
-              <div>Start: {new Date(Number(dao.startTime) * 1000).toLocaleString()}</div>
-              <div>Duration: {Number(dao.duration) / 3600} hours</div>
-              <div>
+          <motion.div
+            key={dao.id}
+            className="bg-gradient-to-r from-indigo-800 via-purple-900 to-gray-900 rounded-xl p-6 flex flex-col md:flex-row md:items-center justify-between shadow-lg border border-indigo-700"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: dao.id * 0.05 }}
+          >
+            <div className="text-left">
+              <div className="font-bold text-lg">DAO #{dao.id}</div>
+              <div className="text-sm text-gray-300">Start: {new Date(Number(dao.startTime) * 1000).toLocaleString()}</div>
+              <div className="text-sm text-gray-400">Duration: {Number(dao.duration) / 3600} hours</div>
+              <div className="text-sm">
                 Time left:{' '}
-                {getRemainingTime(dao.startTime, dao.duration) > 0
-                  ? `${getRemainingTime(dao.startTime, dao.duration)}s`
-                  : 'Expired'}
+                <span className="font-mono text-yellow-300">
+                  {getRemainingTime(dao.startTime, dao.duration) > 0
+                    ? `${getRemainingTime(dao.startTime, dao.duration)}s`
+                    : 'Expired'}
+                </span>
               </div>
             </div>
             {getRemainingTime(dao.startTime, dao.duration) === 0 && !dao.finalized && (
-              <button
+              <motion.button
                 onClick={() => handleFinalize(dao.id)}
                 disabled={finalizing[dao.id]}
-                className="mt-2 md:mt-0 px-4 py-2 bg-red-700 hover:bg-red-800 rounded transition"
+                className="mt-4 md:mt-0 px-5 py-2 bg-red-700 hover:bg-red-800 rounded-full font-semibold transition shadow"
+                whileTap={{ scale: 0.95 }}
               >
                 {finalizing[dao.id] ? 'Finalizing...' : 'Finalize'}
-              </button>
+              </motion.button>
             )}
-          </div>
+          </motion.div>
         ))}
     </div>
   );
