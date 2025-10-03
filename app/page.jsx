@@ -45,22 +45,7 @@ export default function Home() {
       </header>
 
       <main className="max-w-2xl mx-auto text-center">
-        <motion.h2 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.2 }}
-          className="text-5xl font-light mb-6"
-        >
-          Ephemeral Collectives
-        </motion.h2>
-        <motion.p 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.3 }}
-          className="text-gray-400 mb-10"
-        >
-          Create a self-destructing DAO. Live intensely. Vanish gracefully.
-        </motion.p>
+       
 
         <DAOCreator />
 
