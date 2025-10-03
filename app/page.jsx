@@ -32,11 +32,11 @@ export default function Home() {
     contracts: [{ address: TEMPORAL_DAO_ADDRESS, abi: ABI, functionName: 'daoCounter' }]
   });
 
-  useEffect(() => {
-    if (counterData?.[0]?.result) {
-      setDaoCount(counterData[0].result as bigint);
-    }
-  }, [counterData]);
+ useEffect(() => {
+  if (counterData?.[0]?.result) {
+    setDaoCount(BigInt(counterData[0].result)); // ✅ Doğru
+  }
+}, [counterData]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black text-white p-6">
