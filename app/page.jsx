@@ -1,8 +1,7 @@
-// app/page.tsx
 'use client';
 
-import { ConnectButton } from "../components/ConnectButton";
-import { DAOCreator } from "../components/DAOCreator";
+import { ConnectButton } from '@/components/ConnectButton';
+import { DAOCreator } from '@/components/DAOCreator';
 import { useState, useEffect } from 'react';
 import { useReadContracts } from 'wagmi';
 import { motion } from 'framer-motion';
@@ -27,16 +26,16 @@ const ABI = [
 ];
 
 export default function Home() {
-  const [daoCount, setDaoCount] = useState<bigint>(0n);
+  const [daoCount, setDaoCount] = useState(0n); // ✅ TypeScript tipi kaldırıldı
   const { data: counterData } = useReadContracts({
     contracts: [{ address: TEMPORAL_DAO_ADDRESS, abi: ABI, functionName: 'daoCounter' }]
   });
 
- useEffect(() => {
-  if (counterData?.[0]?.result) {
-    setDaoCount(BigInt(counterData[0].result)); // ✅ Doğru
-  }
-}, [counterData]);
+  useEffect(() => {
+    if (counterData?.[0]?.result) {
+      setDaoCount(BigInt(counterData[0].result));
+    }
+  }, [counterData]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black text-white p-6">
