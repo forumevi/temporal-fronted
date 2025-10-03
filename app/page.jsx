@@ -1,4 +1,5 @@
 'use client';
+export const dynamic = 'force-dynamic';
 
 import { ConnectButton } from '../components/ConnectButton';
 import { DAOCreator } from '../components/DAOCreator';
@@ -45,7 +46,10 @@ export default function Home() {
       </header>
 
       <main className="max-w-2xl mx-auto text-center">
-       
+        <h2 className="text-5xl font-light mb-6">Ephemeral Collectives</h2>
+        <p className="text-gray-400 mb-10">
+          Create a self-destructing DAO. Live intensely. Vanish gracefully.
+        </p>
 
         <DAOCreator />
 
