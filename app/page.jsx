@@ -26,7 +26,7 @@ const ABI = [
 ];
 
 export default function Home() {
-  const [daoCount, setDaoCount] = useState(0n); // ✅ TypeScript tipi kaldırıldı
+  const [daoCount, setDaoCount] = useState(0n);
   const { data: counterData } = useReadContracts({
     contracts: [{ address: TEMPORAL_DAO_ADDRESS, abi: ABI, functionName: 'daoCounter' }]
   });
