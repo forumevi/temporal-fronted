@@ -1,16 +1,11 @@
-// app/layout.tsx
 import './globals.css';
-import { config } from "../lib/wagmi";
+import { config } from '@/lib/wagmi';
 import { WagmiProvider } from 'wagmi';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 const queryClient = new QueryClient();
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
