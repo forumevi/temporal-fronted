@@ -19,7 +19,7 @@ export default function Home() {
       <div className="absolute inset-0 pointer-events-none z-0">
         <Starfield />
       </div>
-
+<div className="bg-red-500 text-white p-4">Tailwind çalışıyor mu?</div>
       <header className="flex justify-between items-center mb-12 z-10 relative">
         <h1 className="text-4xl md:text-5xl font-bold font-serif tracking-tight drop-shadow-lg">Temporal DAO</h1>
         <ConnectButton />
