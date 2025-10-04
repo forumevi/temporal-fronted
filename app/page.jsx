@@ -77,20 +77,23 @@ export default function Home() {
   );
 }
 
-// Simple starfield background
+// Simple starfield background (CSS-based)
 function Starfield() {
   return (
-    <svg className="w-full h-full absolute inset-0" style={{ opacity: 0.25 }}>
-      {[...Array(120)].map((_, i) => (
-        <circle
+    <div className="absolute inset-0 opacity-20">
+      {[...Array(100)].map((_, i) => (
+        <div
           key={i}
-          cx={Math.random() * 1920}
-          cy={Math.random() * 1080}
-          r={Math.random() * 1.2 + 0.2}
-          fill="white"
-          opacity={Math.random() * 0.7 + 0.2}
+          className="absolute rounded-full bg-white"
+          style={{
+            top: `${Math.random() * 100}%`,
+            left: `${Math.random() * 100}%`,
+            width: `${Math.random() * 2 + 1}px`,
+            height: `${Math.random() * 2 + 1}px`,
+            opacity: Math.random(),
+          }}
         />
       ))}
-    </svg>
+    </div>
   );
 }
