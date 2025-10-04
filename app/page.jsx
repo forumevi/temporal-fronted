@@ -14,7 +14,7 @@ export default function Home() {
   const [showCreator, setShowCreator] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-gray-900 to-black text-white p-6 relative overflow-hidden">
+   <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-gray-900 to-black text-white p-6 relative overflow-hidden">
       {/* Starry animated background */}
       <div className="absolute inset-0 pointer-events-none z-0">
         <Starfield />
