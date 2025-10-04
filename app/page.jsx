@@ -1,7 +1,7 @@
 'use client';
 
 import { useAccount } from 'wagmi';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ConnectButton } from '../components/ConnectButton';
 import { DAOCreator } from '../components/DAOCreator';
 import { DAOList } from '../components/DAOList';
@@ -12,16 +12,44 @@ import { motion, AnimatePresence } from 'framer-motion';
 export default function Home() {
   const { address } = useAccount();
   const [showCreator, setShowCreator] = useState(false);
+  const [stars, setStars] = useState([]);
+
+  // Starfield'i client-side oluştur
+  useEffect(() => {
+    const generatedStars = Array.from({ length: 100 }, (_, i) => ({
+      id: i,
+      top: `${Math.random() * 100}%`,
+      left: `${Math.random() * 100}%`,
+      width: `${Math.random() * 2 + 1}px`,
+      height: `${Math.random() * 2 + 1}px`,
+      opacity: Math.random(),
+    }));
+    setStars(generatedStars);
+  }, []);
 
   return (
-   <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-gray-900 to-black text-white p-6 relative overflow-hidden">
-      {/* Starry animated background */}
-      <div className="absolute inset-0 pointer-events-none z-0">
-        <Starfield />
+    <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-gray-900 to-black text-white p-6 relative overflow-hidden">
+      {/* Starry background - client-side only */}
+      <div className="absolute inset-0 pointer-events-none z-0 opacity-20">
+        {stars.map((star) => (
+          <div
+            key={star.id}
+            className="absolute rounded-full bg-white"
+            style={{
+              top: star.top,
+              left: star.left,
+              width: star.width,
+              height: star.height,
+              opacity: star.opacity,
+            }}
+          />
+        ))}
       </div>
 
       <header className="flex justify-between items-center mb-12 z-10 relative">
-        <h1 className="text-4xl md:text-5xl font-bold font-serif tracking-tight drop-shadow-lg">Temporal DAO</h1>
+        <h1 className="text-4xl md:text-5xl font-bold font-serif tracking-tight drop-shadow-lg">
+          Temporal DAO
+        </h1>
         <ConnectButton />
       </header>
 
@@ -73,27 +101,6 @@ export default function Home() {
           <Leaderboard />
         </section>
       </main>
-    </div>
-  );
-}
-
-// Simple starfield background (CSS-based)
-function Starfield() {
-  return (
-    <div className="absolute inset-0 opacity-20">
-      {[...Array(100)].map((_, i) => (
-        <div
-          key={i}
-          className="absolute rounded-full bg-white"
-          style={{
-            top: `${Math.random() * 100}%`,
-            left: `${Math.random() * 100}%`,
-            width: `${Math.random() * 2 + 1}px`,
-            height: `${Math.random() * 2 + 1}px`,
-            opacity: Math.random(),
-          }}
-        />
-      ))}
     </div>
   );
 }
